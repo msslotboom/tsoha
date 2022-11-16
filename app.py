@@ -1,6 +1,10 @@
 from flask import Flask
-from flask import render_template, request
+from flask import redirect, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///slotboom"
+db = SQLAlchemy(app)
 
 @app.route("/form")
 def form():
@@ -10,5 +14,8 @@ def form():
 def result():
     task = request.form["task"]
     time = request.form["time"]
+    sql = "INSERT INTO time (hours, task) VALUES (:time, :task)"
+    db.session.execute(sql, {"time":time, "task":task})
+    db.session.commit()
     return render_template("result.html", task=task,
                                           time=time)
