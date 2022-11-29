@@ -11,6 +11,13 @@ db = SQLAlchemy(app)
 def form():
     return render_template("form.html")
 
+@app.route("/create_user")
+def create_page():
+    return render_template("create_user_form.html")
+
+def create():
+    pass
+
 @app.route("/result", methods=["POST"])
 def result():
     task = request.form["task"]
