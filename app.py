@@ -17,15 +17,14 @@ def result():
     time = request.form["time"]
     # user_id is temporarily hardcoded
     id = 1
-    sql_insert = "INSERT INTO time (hours, task, user_id) VALUES (:time, :task, :id)"
+    sql_insert = "INSERT INTO time (hours, task, user_id, logged_at) VALUES (:time, :task, :id, NOW())"
     sql_tot_time = "SELECT SUM (hours) FROM time WHERE user_id =:user_id"
-    print(id)
+
     db.session.execute(sql_insert, {"time":time, "task":task, "id":id})
     db.session.commit()
-
+    print("debug print")
     result = db.session.execute(sql_tot_time, {"user_id":id})
     total = result.fetchone()[0]
-    print(total)
     db.session.commit()
 
     return render_template("result.html", task=task,
