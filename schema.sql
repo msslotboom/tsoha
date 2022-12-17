@@ -10,4 +10,4 @@ CREATE TABLE time (
     hours INTEGER,
     task INTEGER,
     logged_at TIMESTAMP
-)
+);
