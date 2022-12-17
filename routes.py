@@ -7,7 +7,7 @@ import secrets
 @app.route("/form")
 def form():
     # form_id = request.form["form_id"]
-    form_id = 1
+    form_id = 2
     fields = forms.get_form_fields(form_id)
     print("fields =",  fields)
     return render_template("form.html", fields=fields, enumerate=enumerate)
@@ -85,5 +85,6 @@ def dislay_create_form():
 @app.route("/create_form", methods=["POST"])
 def create_form():
     fields = request.form["fields"]
-    forms.add_form(fields, session["username"])
+    title = request.form["title"]
+    forms.add_form(title, fields, session["username"])
     return redirect("/")

@@ -9,9 +9,9 @@ def get_form_fields(form_id):
     result_list.pop()
     return result_list
 
-def add_form(fields, admin):
-    add_field = "INSERT INTO forms (fields) VALUES (:fields) RETURNING ID"
-    execute = db.session.execute(add_field, {"fields":fields})
+def add_form(title, fields, admin):
+    add_field = "INSERT INTO forms (fields, title) VALUES (:fields, :title) RETURNING ID"
+    execute = db.session.execute(add_field, {"fields":fields, "title":title})
     form_id = execute.fetchone()[0]
     db.session.commit()
 

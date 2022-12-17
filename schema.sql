@@ -6,7 +6,8 @@ CREATE TABLE users (
 
 CREATE TABLE forms (
     id SERIAL PRIMARY KEY,
-    fields TEXT
+    fields TEXT,
+    title TEXT
 );
 
 CREATE TABLE time (
