@@ -4,10 +4,23 @@ CREATE TABLE users (
     password TEXT
 );
 
+CREATE TABLE forms (
+    id SERIAL PRIMARY KEY,
+    fields TEXT
+);
+
 CREATE TABLE time (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     hours INTEGER,
     task INTEGER,
+    form INTEGER REFERENCES forms,
     logged_at TIMESTAMP
+);
+
+CREATE TABLE userform (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    form_id INTEGER REFERENCES forms,
+    admin BOOLEAN
 );
