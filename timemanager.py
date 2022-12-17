@@ -2,8 +2,6 @@ from db import db
 
 def add_timestamp(time, task, user_id):
     sql_insert = "INSERT INTO time (hours, task, user_id, logged_at) VALUES (:time, :task, :id, NOW())"
-    sql_tot_time = "SELECT SUM (hours) FROM time WHERE user_id =:user_id"
-
     db.session.execute(sql_insert, {"time":time, "task":task, "id":user_id})
     db.session.commit()
 
