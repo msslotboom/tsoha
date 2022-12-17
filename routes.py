@@ -8,16 +8,20 @@ def form():
 
 @app.route("/create_user")
 def create_page():
-    return render_template("create_user_form.html")
+    return render_template("create_user.html")
 
 @app.route("/create_user", methods=["POST"])
 def create_user():
     username = request.form["username"]
     password = request.form["password"]
+    password_repeat = request.form["password_repeat"]
 
-    if users.create_user(username, password):
-        #TODO: autologin
-        return redirect("/")
+    if users.create_user(username, password) and password==password_repeat:
+        if users.login(username, password):
+            session["username"] = username
+            return redirect("/")
+        else:
+            return redirect("/login")
     else:
         return redirect("/create_user")
 
