@@ -1,12 +1,15 @@
 from flask import redirect, render_template, request, session
 from app import app
-import timemanager
-import users
+import timemanager, users, forms
 
 
 @app.route("/form")
 def form():
-    return render_template("form.html")
+    # form_id = request.form["form_id"]
+    form_id = 1
+    fields = forms.get_form_fields(form_id)
+    print("fields =",  fields)
+    return render_template("form.html", fields=fields, enumerate=enumerate)
 
 
 @app.route("/create_user")
