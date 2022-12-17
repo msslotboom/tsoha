@@ -1,7 +1,5 @@
-from flask import Flask
 from flask import redirect, render_template, request
 from app import app
-from db import db
 import timemanager
 
 @app.route("/form")
@@ -22,7 +20,7 @@ def result():
     
     timemanager.add_timestamp(time, task, 1)
     total_time = timemanager.get_total_time_user(1)
-    
+
     return render_template("result.html", task=task,
                                           time=time,
                                           total=total_time,
