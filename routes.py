@@ -77,3 +77,13 @@ def login():
 def logout():
     del session["username"]
     return redirect("/")
+
+@app.route("/create_form")
+def dislay_create_form():
+    return render_template("create_form.html")
+
+@app.route("/create_form", methods=["POST"])
+def create_form():
+    fields = request.form["fields"]
+    forms.add_form(fields, session["username"])
+    return redirect("/")
