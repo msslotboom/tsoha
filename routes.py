@@ -1,6 +1,7 @@
 from flask import redirect, render_template, request, session
 from app import app
 import timemanager, users, forms
+import secrets
 
 
 @app.route("/form")
@@ -34,9 +35,11 @@ def create_user():
 
 @app.route("/result", methods=["POST"])
 def result():
-    # TODO: token check
     task = request.form["task"]
     time = request.form["time"]
+
+    if session["csrf_token"] != request.form["csrf_token"]:
+        return "403 Forbidden"
 
     timemanager.add_timestamp(time, task, 1)
     total_time = timemanager.get_total_time_user(1)
@@ -64,6 +67,7 @@ def login():
     password = request.form["password"]
     if users.login(username, password):
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
     else:
         return redirect("/login")
