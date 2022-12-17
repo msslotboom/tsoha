@@ -39,15 +39,19 @@ def result():
 def index():
     return render_template("index.html")
 
+@app.route("/login")
+def show_login_field():
+    return render_template("login.html")
+
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"]
     password = request.form["password"]
     if users.login(username, password):
         session["username"] = username
-        return redirect("/form")
-    else:
         return redirect("/")
+    else:
+        return redirect("/login")
 
 @app.route("/logout")
 def logout():
