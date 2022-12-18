@@ -1,6 +1,8 @@
 from flask import redirect, render_template, request, session, flash
 from app import app
-import timemanager, users, forms
+import timemanager
+import users
+import forms
 import secrets
 
 
@@ -91,9 +93,11 @@ def logout():
     del session["username"]
     return redirect("/")
 
+
 @app.route("/create_form")
 def dislay_create_form():
     return render_template("create_form.html")
+
 
 @app.route("/create_form", methods=["POST"])
 def create_form():
@@ -101,6 +105,7 @@ def create_form():
     title = request.form["title"]
     forms.add_form(title, fields, session["username"])
     return redirect("/")
+
 
 @app.route("/add_user_to_form", methods=["POST"])
 def redirect_add_user():
