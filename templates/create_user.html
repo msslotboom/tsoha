@@ -1,3 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+{% block content %}
+
+<h3>Tee käyttäjätili</h3>
 <form action="/create_user" method="POST">
     Valitse käyttäjänimi ja salasana:
     <br>
@@ -9,4 +14,5 @@
     <br>
     <input type="submit" value="submit">
 </form>
-    
+
+{% endblock %}

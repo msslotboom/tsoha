@@ -1,4 +1,9 @@
-<h1>Time Logging</h1>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+{% block content %}
+
+<h3>Kirjaudu sisään</h3>
+
 <form action="/login" method="POST">
     <p>Tunnus:<br>
     <input type="text" name="username"></p>
@@ -6,3 +11,4 @@
     <input type="password" name="password"></p>
     <input type="submit" value="Kirjaudu">
 </form>
+{% endblock %}

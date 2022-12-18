@@ -1,4 +1,7 @@
-<h1>Time Logging</h1>
+{% extends "layout.html" %}
+{% block title %}Kirjautuminen{% endblock %}
+{% block content %}
+
 {% with messages = get_flashed_messages() %} {% if messages %}
 <ul>
   {% for message in messages %}
@@ -38,3 +41,5 @@
         <li><a href="/create_user">Luo uusi käyttäjä</a></li>
     </ul>
 {% endif %}
+
+{% endblock %}
