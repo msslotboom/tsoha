@@ -2,7 +2,15 @@
 
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<p><a href="/form">Täytä lomake</a></p>
+
+<p>Täytä Lomake:</p>
+{% for form_id, title in user_forms %}
+<form action="/form" method="POST">
+    <input type="hidden" value="{{ form_id }}" name="form_id">
+    <input type="submit" value="{{ title }}">
+</form>
+{% endfor %}
+
 <a href="/logout">Kirjaudu ulos</a>
 
 {% else %}

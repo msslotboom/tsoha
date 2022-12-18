@@ -4,12 +4,11 @@ import timemanager, users, forms
 import secrets
 
 
-@app.route("/form")
+@app.route("/form", methods=["POST"])
 def form():
-    # form_id = request.form["form_id"]
-    form_id = 2
+    form_id = request.form["form_id"]
+    print(form_id)
     fields = forms.get_form_fields(form_id)
-    print("fields =",  fields)
     return render_template("form.html", fields=fields, enumerate=enumerate)
 
 
@@ -53,7 +52,8 @@ def result():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    user_forms = forms.get_user_forms_id_and_title(session["username"])
+    return render_template("index.html", user_forms=user_forms)
 
 
 @app.route("/login")
