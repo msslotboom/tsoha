@@ -36,6 +36,13 @@ def is_admin_in_form(username, form_id):
     result = db.session.execute(sql, {"user_id":user_id, "form_id":form_id})
     return result
 
+def get_admin_form_id_and_title(username):
+    user_id = users.get_user_id(username)
+    sql = "SELECT id, title FROM forms WHERE id IN (SELECT form_id FROM userform WHERE user_id=:user_id AND admin=:admin)"
+    results = db.session.execute(sql, {"user_id":user_id, "admin":True}).fetchall()
+    return results
+    
+
 def add_user_to_form(username, form_id:int, admin:bool):
     user_id = users.get_user_id(username)
     if user_id is None:

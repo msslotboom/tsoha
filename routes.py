@@ -26,6 +26,7 @@ def create_user():
     if users.create_user(username, password) and password == password_repeat:
         if users.login(username, password):
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         return redirect("/login")
     else:
@@ -52,8 +53,20 @@ def result():
 
 @app.route("/")
 def index():
-    user_forms = forms.get_user_forms_id_and_title(session["username"])
-    return render_template("index.html", user_forms=user_forms)
+    try:
+        username = session["username"]
+        user_forms = forms.get_user_forms_id_and_title(username)
+        admin_forms = forms.get_admin_form_id_and_title(username)
+        print(admin_forms)
+        if len(admin_forms) > 0:
+            admin = True
+        else:
+            admin = False
+    except:
+        user_forms = []
+        admin_forms = []
+        admin = False
+    return render_template("index.html", user_forms=user_forms, admin_forms=admin_forms, admin=admin)
 
 
 @app.route("/login")
@@ -89,13 +102,11 @@ def create_form():
     forms.add_form(title, fields, session["username"])
     return redirect("/")
 
-# @app.route("/redirect_add_user", method=["POST"])
-# def redirect_add_user():
-#     form_id = request.form["form_id"]
+@app.route("/add_user_to_form", methods=["POST"])
+def redirect_add_user():
+    form_id = request.form["form_id"]
+    return render_template("add_user.html", form_id=form_id)
 
-@app.route("/add_user")
-def add_user():
-    return render_template("add_user.html", form_id=2)
 
 @app.route("/add_user", methods=["POST"])
 def add_user_to_form():
@@ -108,4 +119,4 @@ def add_user_to_form():
         return redirect("/")
     except Exception as error:
         flash(str(error))
-        return redirect("/add_user")
+        return redirect("/")

@@ -6,8 +6,11 @@
   {% endfor %}
 </ul>
 {% endif %} {% endwith %}
+
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
+
+<p><a href="/create_form">Luo lomake</a></p>
 
 <p>Täytä Lomake:</p>
 {% for form_id, title in user_forms %}
@@ -16,6 +19,16 @@
     <input type="submit" value="{{ title }}">
 </form>
 {% endfor %}
+
+{% if admin %}
+    Lisää käyttäjiä lomakkeisiin:
+    {% for form_id, title in admin_forms %}
+    <form action="add_user_to_form" method="POST">
+        <input type="hidden" value="{{ form_id }}" name="form_id">
+        <input type="submit" value="{{ title }}">
+    </form>
+    {% endfor %}
+{% endif %}
 
 <a href="/logout">Kirjaudu ulos</a>
 
