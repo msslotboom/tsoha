@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, flash
 from app import app
 import timemanager, users, forms
 import secrets
@@ -88,3 +88,24 @@ def create_form():
     title = request.form["title"]
     forms.add_form(title, fields, session["username"])
     return redirect("/")
+
+# @app.route("/redirect_add_user", method=["POST"])
+# def redirect_add_user():
+#     form_id = request.form["form_id"]
+
+@app.route("/add_user")
+def add_user():
+    return render_template("add_user.html", form_id=2)
+
+@app.route("/add_user", methods=["POST"])
+def add_user_to_form():
+    username = request.form["username"]
+    form_id = request.form["form_id"]
+    admin = request.form["admin"]
+    try:
+        forms.add_user_to_form(username, int(form_id), admin)
+        flash("Käyttäjä lisätty")
+        return redirect("/")
+    except Exception as error:
+        flash(str(error))
+        return redirect("/add_user")
