@@ -11,3 +11,9 @@ Projektissa on seuraavat ominaisuudet:
 - Käyttäjä voi kirjata montako tuntia on tehnyt tehtävää päivässä
 - Käyttäjä voi nähdä montako tuntia on käyttänyt jokaiseen tehtävään
 - Käyttäjät ja ylläpitäjä voi nähdä kuinka paljon tiimi on käyttänyt jokaiseen tehtävään, ja miten se vertaa tavoitteeseen
+
+
+Ohjelmaan pitää tehdä .env tiedosto jossa on seuraavat tiedot:
+`DATABASE_URL=postgresql:///tietokannan_nimi
+SECRET_KEY=`
+Johon pitää täyttää tietokannan nimi ja salainen koodi minkä saa valita itse. Tietokannan alustaminen onnistuu komennolla psql < schema.sql
