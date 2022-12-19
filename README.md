@@ -14,6 +14,9 @@ Projektissa on seuraavat ominaisuudet:
 
 
 Ohjelmaan pitää tehdä .env tiedosto jossa on seuraavat tiedot:
-`DATABASE_URL=postgresql:///tietokannan_nimi
-SECRET_KEY=`
+
+`DATABASE_URL=postgresql:///tietokannan_nimi`
+
+`SECRET_KEY=`
+
 Johon pitää täyttää tietokannan nimi ja salainen koodi minkä saa valita itse. Tietokannan alustaminen onnistuu komennolla psql < schema.sql
